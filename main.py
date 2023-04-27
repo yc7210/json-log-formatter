@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime, os, json
+import datetime, os, json, re
 
 # 디렉토리 내 하나의 json 파일 탐색 후 list(dict) 형태로 반환
 def get_data_from_json() :
@@ -24,7 +24,8 @@ def formatting(input) :
     f = open(export_name + ".txt", 'w', encoding='UTF-8')
 
     for data in input :
-        f.write(data["log"] + '\n')
+        mylog = re.sub(r'\u001b\[[0-9;]*m', '', data["log"])
+        f.write(mylog + '\n')
 
     f.close()
 
